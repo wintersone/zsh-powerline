@@ -68,12 +68,17 @@ _config_prompt() {
     else
         local symbol="%F{$COLOR_FAILURE}$PS_SYMBOL%f"
     fi
-
+    
+    local conda="(${CONDA_DEFAULT_ENV})"
     local cwd="%F{$COLOR_CWD}%~%f"
     local git="%F{$COLOR_GIT}$(_git_info)%f"
     local time="%F{$COLOR_TIME}%D{%H:%M:%S}%f"
-
-    PROMPT="$cwd$git $symbol "
+    
+    if [[ -n "$CONDA_DEFAULT_ENV" ]]; then
+        PROMPT="$conda$cwd$git $symbol "
+    else
+        PROMPT="$cwd$git $symbol "
+    fi
     RPROMPT="$time"
 }
 
